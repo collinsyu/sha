@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Free shadowsocks</title>
+    <link rel="stylesheet" href="/libs/bootstrap.min.css">
+    <style type="text/css">
+      .title {
+        margin: 24px 10px 10px 10px;
+        font-size: 22px;
+        text-align: center;
+      }
+      .address {
+        margin: 10px;
+        font-size: 16px;
+        word-wrap:break-word;
+        text-align: center;
+      }
+      .qrcode {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body class="container">
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
+    <script src="/libs/qrcode.min.js"></script>
+    <div class="row">
+      <div class="title col-md-12 col-lg-12">扫码添加账号<br>定期更换密码</div>
+    </div>
+    <div class="row">
+      <div class="qrcode col-md-12 col-lg-12">
+        <a id="qrcode" href="<%= qrcode%>"></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="address col-md-12 col-lg-12"><%= qrcode%></div>
+    </div>
+    <script>
+      var time = Date.now();
+      var qr = qrcode(8, 'Q');
+      qr.addData('<%= qrcode%>');
+      qr.make();
+      document.getElementById('qrcode').innerHTML = qr.createImgTag(6);
+      setInterval(function() {
+        $.get('/updateTime', function(data) {
+          if(time <= data.time) {
+            location.reload();
+          };
+        });
+      }, 90 * 1000);
+    </script>
+  </body>
+</html>

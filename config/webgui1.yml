@@ -1,0 +1,55 @@
+
+
+type: m
+
+manager:
+  address: 0.0.0.0:6002
+  password: '123456'
+  # 这部分的端口和密码需要跟上一步 manager 参数里的保持一致，以连接 type s 部分监听的 tcp 端口
+plugins:
+  flowSaver:
+    use: true
+  user:
+    use: true
+  account:
+    use: true
+  macAccount:
+    use: true
+  group:
+    use: true
+  email:
+    use: true
+    type: 'smtp'
+    username: 'collinsyu@bobpet.cn'
+    password: 'Caonima.Gainidieyouxiang1'
+    host: 'smtp.exmail.qq.com'
+    # 这部分的邮箱和密码是用于发送注册验证邮件，重置密码邮件
+  webgui:
+    use: true
+    host: '0.0.0.0'
+    port: '3003'
+    icon: 'kkk.jpg'
+#    site: 'http://47.52.134.161'
+    site: 'http://jdy.masteryu.site'
+    #gcmSenderId: '456102641793'
+    #gcmAPIKey: 'AAAAGzzdqrE:XXXXXXXXXXXXXX'
+  webgui_telegram:
+    use: false
+    token: ''
+  alipay:
+    # 如果不使用支付宝，这段可以去掉
+    use: true
+    appid: '2018090161266116'
+    notifyUrl: 'http://jdy.masteryu.site/api/user/alipay/callback'
+    merchantPrivateKey: 'MIIEpAIBAAKCAQEAySmaTsz6aiWsUhhzwdcRWqAf7UrbwmY7CY+Jx4SUlKCGJ+BOQ0xkxfv+wB6nAaO97maQDid0HHlZqNoLueLxK3df79wbk2XzPCPyGTv+iUy7/hlPkLYIrb8b2YMTDnbwc9UdC2mQoC4kzqLIXsUj8CEHpArV5nvgZJ73GvASm2fsHpWXJrZTLPn/Jg7qqIJlcOyGa48cdm6z75F4RPff5kfkJp7YvJpPXP5FCbnEpe4KioH/ybrdJGqekF0B3yXdB3jB2zyIgOp0PQgHXQRwAbVsAwAtdGssse2QG62ve1wQUz/4KBKPAF5PxErB3AFfhAtQHSUc2xFNYoChZw4zsQIDAQABAoIBAQCA3VzThC4a151nTfDByUN9ubwaJ+1VwGWrfz81B/Kir56hZujb5dFcn0yXyEsWGs3uLde0qYORRg+wwlXms8HpJWTY5DjqGNJTwXcywSMS04xOf+pfeq1emGF/2p7XkkwA+BHOIMccRdMgaFlRlJqsFoytgp96MfsSml8T650P3cRjUOXJEjXTAS2JC5za6J2hjc+K8g8GmWKGOy34MzVidVnTPKB3rFsCChJCG4oSh0IUWVuLAJnG/FWu5aYb5wbI4BemAP3NArvF9aoQBpXWimR4U1e0JvC3N99qI5oX1SNaqD9VkjQqmiXOYjNX9nK5yKH356zDNOinLd70gg/BAoGBAPUFgIkhgzEr+iM01C6Hhn/NP+9AOAcEVID/lS82basR6BL+D+EcOeiu7XHCGMQyZntFmAeYaAEdhwIHjbc5Tcw5RSUY+jKFnHAYv0DupkKC086+ozb4f+KZQpnO14ma1tYOkGB9ICKvDTgzuAh8x0pWdHPkz1z/HfO+Fd4bpDWZAoGBANItBR7vf366/E6XCx/ldh28uho5Ae+CA80lCY8RfwUE/i9XC2xb796vvfrlP+/4AZuNaCsU+XybPuC60KOfSDRRsXvtnbLw8QV5EGn0iCF57bZMwsUboFTFwPPiqDTYIOnBZHyvv6lLv2WmEtg80ZzVFDM5llBhsx4nCfYBxA3ZAoGAeAPi6siMfzhgRIBq8gOWIOGDUIhvKRi435rRExgg7atOtobVdlkiEFQmoBMHmIprYjQ7fHTtdKZm69qRUs7xyXe/46TxYG/LqailfYOn0mpMnzcHsTRVR8P0OGx1bMR4OM9Xbru7UuHVotLKcPXVlBb24ZGQ9KdNn4dbJLj7XPkCgYEAuLc0bvHSPZEcuf1pm4jRfGUnsnAz0UmVCbDpa8HWvpSayQRZV8ydTjtqXp0oykBPOWTYDjUK54aRhnTpdURB8ylxMReup1u2mDbERDrTgYhlcPiZnR4glSCP6khjyL3Cf26mYCcd7S5TcoS4vy8Eki9652JPRyn2gCOTT5BRvFECgYBuZpRq1uJkqApxMEG0fSiXJJ0r1dUMyPw7XKNWgUcksB+cXODNrARqHWoejfigOc1s89i276iNG/OQRe2jkLeyq4jc7qvJetH+YhM+M3UoNQmyWz0V1b+WrPtUxSGUAeo7CHIK4hDdwgFBWM3WHEBxHFPUDPHEdW2DRiiM7pruug=='
+    alipayPublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg6yTT8a/3p9wzWcpMxw4CS3MNEEO/SroZNmNEqBjcMnz4qg4ghvOt1kmj1npNAUAyyJqwhafA3wlaTm15SHE8QwkdUgupRJzEF21GTS0tg2bAIF1Rd2zPPI+Y8i9+AwCUYvwgR6UtbvQCRaplLOkhXWWatqQOW6lShbcx8xtECPnxM9cJDHGB8BrWgQijYKDV9Ed5KgRFOjhiYRqRqRtwKR3/iPQwrKjBdtDY7ZRwQWAtCNQLczFkoLF04+TpehIFQ8qv9t60VsDH7Hyl9p/kX9hxogFwWvq4tQOGoyU5SKmuxIrC2Mlhh9qlsLrW30eh3mH0k0uzUhFlnjK9B3x2wIDAQAB
+'
+    gatewayUrl: 'https://openapi.alipay.com/gateway.do'
+  paypal:
+    # 如果不使用paypal，这段可以去掉
+    use: false
+    mode: 'live' # sandbox or live
+    client_id: ''
+    client_secret: ''
+
+db: 'webgui.sqlite'
